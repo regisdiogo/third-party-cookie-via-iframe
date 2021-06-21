@@ -3,14 +3,14 @@
 
 <head>
   <script>
-    var OT_CONSENT_COOKIE = 'OptanonConsent';
     window.addEventListener("message", receiveMessage, false);
     function receiveMessage(event) {
-      if (event && event.data && event.data.OptanonConsent !== undefined && event.data.OptanonConsent !== "undefined") {
-        setCookie(OT_CONSENT_COOKIE, event.data.OptanonConsent);
-        if (event.data.OptanonAlertBoxClosed !== undefined && event.data.OptanonAlertBoxClosed !== "undefined") {
-          setCookie(OT_ALERT_CLOSED_COOKIE, event.data.OptanonAlertBoxClosed)
+      if (event && event.data) {
+        var cookieName = "third_party_cookie";
+        if (event.data.cookie_name !== undefined || event.data.cookie_name !== "undefined" || event.data.cookie_name !== "") {
+          cookieName = event.data.cookie_name;
         }
+        setCookie(cookieName, event.data.cookie_value);
       }
     }
     function getCookie(name) {
@@ -31,14 +31,10 @@
       document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=lax;';
     }
     window.onload = function () {
-      var otCookieConsentValue = getCookie(OT_CONSENT_COOKIE);
-      var otCookieAlertClosedValue = getCookie(OT_ALERT_CLOSED_COOKIE);
-      var payload = { name: "OneTrustCookies" };
-      if (otCookieConsentValue) {
-        payload[OT_CONSENT_COOKIE] = otCookieConsentValue;
-        if (otCookieAlertClosedValue) {
-          payload[OT_ALERT_CLOSED_COOKIE] = otCookieAlertClosedValue;
-        }
+      var third_party_cookie_value = getCookie("third_party_cookie");
+      var payload = { name: "ILoveCookies" };
+      if (third_party_cookie_value) {
+        payload["third_party_cookie_value"] = third_party_cookie_value;
       }
       parent.postMessage(payload, "*");
     }
