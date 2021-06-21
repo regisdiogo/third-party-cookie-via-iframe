@@ -25,12 +25,15 @@
       return '';
     }
     function setCookie(name, value) {
+      console.log('setCookie: ' + name);
+      console.log('setCookie: ' + value);
       var date = new Date();
       date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
       var url = (window && window.location) ? window.location.href : '';
       var hostname = url.indexOf('/') > -1 ? url.split('/')[2] : url.split('/')[0];
       hostname = (hostname.split(':')[0]).split('?')[0];
-      document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=lax;';
+      document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=none;';
+      console.log('done');
     }
     window.onload = function () {
       console.log("window.onload");
