@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    var OT_CONSENT_COOKIE = 'OptanonConsent';
+    window.addEventListener("message", receiveMessage, false);
+    function receiveMessage(event) {
+      if (event && event.data && event.data.OptanonConsent !== undefined && event.data.OptanonConsent !== "undefined") {
+        setCookie(OT_CONSENT_COOKIE, event.data.OptanonConsent);
+        if (event.data.OptanonAlertBoxClosed !== undefined && event.data.OptanonAlertBoxClosed !== "undefined") {
+          setCookie(OT_ALERT_CLOSED_COOKIE, event.data.OptanonAlertBoxClosed)
+        }
+      }
+    }
+    function getCookie(name) {
+      var nameEq = name + '=', ca = document.cookie.split(';'), i, c;
+      for (i = 0; i < ca.length; i += 1) {
+        c = ca[i];
+        while (c.charAt(0) == ' ') { c = c.substring(1, c.length); }
+        if (c.indexOf(nameEq) == 0) { return c.substring(nameEq.length, c.length); }
+      }
+      return '';
+    }
+    function setCookie(name, value) {
+      var date = new Date();
+      date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
+      var url = (window && window.location) ? window.location.href : '';
+      var hostname = url.indexOf('/') > -1 ? url.split('/')[2] : url.split('/')[0];
+      hostname = (hostname.split(':')[0]).split('?')[0];
+      document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=lax;';
+    }
+    window.onload = function () {
+      var otCookieConsentValue = getCookie(OT_CONSENT_COOKIE);
+      var otCookieAlertClosedValue = getCookie(OT_ALERT_CLOSED_COOKIE);
+      var payload = { name: "OneTrustCookies" };
+      if (otCookieConsentValue) {
+        payload[OT_CONSENT_COOKIE] = otCookieConsentValue;
+        if (otCookieAlertClosedValue) {
+          payload[OT_ALERT_CLOSED_COOKIE] = otCookieAlertClosedValue;
+        }
+      }
+      parent.postMessage(payload, "*");
+    }
+  </script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "third-party-cookie-via-iframe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/regisdiogo/third-party-cookie-via-iframe.git",
+  "author": "Regis Diogo de Siqueira Filho <regis.siqueira@booking.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
