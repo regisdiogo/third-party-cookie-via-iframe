@@ -9,9 +9,6 @@
       console.log(event);
       if (event && event.data) {
         var cookieName = "third_party_cookie";
-        if (event.data.cookie_name !== undefined || event.data.cookie_name !== "undefined" || event.data.cookie_name !== "") {
-          cookieName = event.data.cookie_name;
-        }
         setCookie(cookieName, event.data.cookie_value);
       }
     }
