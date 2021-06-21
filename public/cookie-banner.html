@@ -5,6 +5,8 @@
   <script>
     window.addEventListener("message", receiveMessage, false);
     function receiveMessage(event) {
+      console.log("receiveMessage");
+      console.log(event);
       if (event && event.data) {
         var cookieName = "third_party_cookie";
         if (event.data.cookie_name !== undefined || event.data.cookie_name !== "undefined" || event.data.cookie_name !== "") {
@@ -31,6 +33,7 @@
       document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=lax;';
     }
     window.onload = function () {
+      console.log("window.onload");
       var third_party_cookie_value = getCookie("third_party_cookie");
       var payload = { name: "ILoveCookies" };
       if (third_party_cookie_value) {
