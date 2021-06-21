@@ -29,7 +29,7 @@
       var url = (window && window.location) ? window.location.href : '';
       var hostname = url.indexOf('/') > -1 ? url.split('/')[2] : url.split('/')[0];
       hostname = (hostname.split(':')[0]).split('?')[0];
-      document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=none;';
+      document.cookie = name + '=' + value + ';domain=.' + hostname + ';path=/;expires=' + date.toUTCString() + ';samesite=none;secure';
       console.log('done');
     }
     window.onload = function () {
